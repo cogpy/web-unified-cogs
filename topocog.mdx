@@ -71,11 +71,10 @@ This document represents the Boundary domain model using OpenCog's AtomSpace kno
     (ConceptNode "GlobalScope")
     (ConceptNode "PermissionsBoundary")))
 
+;; Different organization scopes are isolated from each other
 (EvaluationLink (stv 1.0 1.0)
-  (PredicateNode "isolatedFrom")
-  (ListLink
-    (ConceptNode "OrganizationScope")
-    (ConceptNode "OrganizationScope")))
+  (PredicateNode "hasIsolationProperty")
+  (ConceptNode "OrganizationScope"))
 ```
 
 ### Identity and Access Management Topology
@@ -237,6 +236,9 @@ This document represents the Boundary domain model using OpenCog's AtomSpace kno
 (ConceptNode "HostCatalog"
   (stv 1.0 1.0))
 
+(ConceptNode "NetworkAddress"
+  (stv 1.0 1.0))
+
 ;; Credential Resources
 (ConceptNode "Credential"
   (stv 1.0 1.0))
@@ -344,12 +346,17 @@ This document represents the Boundary domain model using OpenCog's AtomSpace kno
   (ConceptNode "SessionRecording")
   (ConceptNode "SessionManagement"))
 
-;; Session Composition
+;; Session Composition - User connects to Target via Session
 (EvaluationLink (stv 1.0 1.0)
-  (PredicateNode "connectsBetween")
+  (PredicateNode "connectsUser")
   (ListLink
     (ConceptNode "Session")
-    (ConceptNode "User")
+    (ConceptNode "User")))
+
+(EvaluationLink (stv 1.0 1.0)
+  (PredicateNode "connectsToTarget")
+  (ListLink
+    (ConceptNode "Session")
     (ConceptNode "Target")))
 
 (EvaluationLink (stv 1.0 1.0)
